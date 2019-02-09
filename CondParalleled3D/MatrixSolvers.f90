@@ -2,7 +2,7 @@ module MatrixSolvers
 implicit none
 contains
 
-! Решение системы уравнений методом Гаусса-Зейделя
+! вЂ“РµС€РµРЅРёРµ СЃРёСЃС‚РµРјС‹ СѓСЂР°РІРЅРµРЅРёР№ РјРµС‚РѕРґРѕРј в€љР°СѓСЃСЃР°-В«РµР№РґРµР»В¤
 !subroutine Sor(u, aim, aip, ajm, ajp, ap, con)
 !real(8), allocatable, dimension(:,:) :: u, aim, aip, ajm, ajp, ap, con
 !integer i, j
@@ -16,7 +16,7 @@ contains
 !end subroutine Sor
 
 
-! Решение системы уравнений методом переменных направлений
+! вЂ“РµС€РµРЅРёРµ СЃРёСЃС‚РµРјС‹ СѓСЂР°РІРЅРµРЅРёР№ РјРµС‚РѕРґРѕРј РїРµСЂРµРјРµРЅРЅС‹С… РЅР°РїСЂР°РІР»РµРЅРёР№
 subroutine CD(u, aim, aip, ajm, ajp, akm, akp, ap, con)
 real(8), allocatable, dimension(:,:,:) :: u, aim, aip, ajm, ajp, akm, akp, ap, con
 integer i, j, k, nx, ny, nz
@@ -117,7 +117,7 @@ real(8), allocatable, dimension(:) :: a, b, c, d, x, a2, b2, c2, d2, x2
 end subroutine CD
 
 
-! Метод прогонки
+! С›РµС‚РѕРґ РїСЂРѕРіРѕРЅРєРё
 subroutine TDMA(a, b, c, d, x)
 real(8), allocatable, dimension(:) :: a, b, c, d, x
 real(8), allocatable, dimension(:) :: p, q

@@ -34,7 +34,7 @@ subroutine CreateGridAndDecompose
         print *, "Creating grid..."
     end if
 
-    ! Разбиение по y и z проводят все процессы
+    ! Р Р°Р·Р±РёРµРЅРёРµ РїРѕ y Рё z РїСЂРѕРІРѕРґСЏС‚ РІСЃРµ РїСЂРѕС†РµСЃСЃС‹
     call GridDimension(ny, yl, yr, y, yu)
     call GridDimension(nz, zl, zr, z, zu)
     
@@ -57,11 +57,11 @@ real(8), allocatable, dimension(:) :: tx, txu, sx, sxu
 
     print *, "Decomposing..."
     
-    ! Строим обычную сетку
+    ! РЎС‚СЂРѕРёРј РѕР±С‹С‡РЅСѓСЋ СЃРµС‚РєСѓ
     call GridDimension(nx, xl, xr, tx, txu)
     
-    ! Далее распределяем сетки по процессам
-    ! Кол-во расчетных точек на процесс
+    ! Р”Р°Р»РµРµ СЂР°СЃРїСЂРµРґРµР»СЏРµРј СЃРµС‚РєРё РїРѕ РїСЂРѕС†РµСЃСЃР°Рј
+    ! РљРѕР»-РІРѕ СЂР°СЃС‡РµС‚РЅС‹С… С‚РѕС‡РµРє РЅР° РїСЂРѕС†РµСЃСЃ
     !pp = (nx - 2) / numProcesses + 2
     pp = nx / numProcesses + 2
     
@@ -71,7 +71,7 @@ real(8), allocatable, dimension(:) :: tx, txu, sx, sxu
     curEdge = 2
     n = nx
     
-    ! Цикл по всем процессам
+    ! Р¦РёРєР» РїРѕ РІСЃРµРј РїСЂРѕС†РµСЃСЃР°Рј
     do i = 0, numProcesses - 1 
         if (i /= numProcesses - 1) then
             gridSize = pp
@@ -106,20 +106,20 @@ real(8), allocatable, dimension(:) :: tx, txu, sx, sxu
             end do     
         end if
         
-        ! Каждому процессу, кроме самого себя, посылаем массив расчетных точек и граней
+        ! РљР°Р¶РґРѕРјСѓ РїСЂРѕС†РµСЃСЃСѓ, РєСЂРѕРјРµ СЃР°РјРѕРіРѕ СЃРµР±СЏ, РїРѕСЃС‹Р»Р°РµРј РјР°СЃСЃРёРІ СЂР°СЃС‡РµС‚РЅС‹С… С‚РѕС‡РµРє Рё РіСЂР°РЅРµР№
         if (i /= 0) then
             call MPI_Send(gridSize, 1, MPI_INTEGER, i, 100, MPI_COMM_WORLD, ierr)
             call MPI_Send(sx,  gridSize, MPI_DOUBLE_PRECISION, i, 101, MPI_COMM_WORLD, ierr)
             call MPI_Send(sxu, gridSize, MPI_DOUBLE_PRECISION, i, 102, MPI_COMM_WORLD, ierr)
         else
-            ! Корневой процесс копирует сетку в расчетные массивы x, xu
+            ! РљРѕСЂРЅРµРІРѕР№ РїСЂРѕС†РµСЃСЃ РєРѕРїРёСЂСѓРµС‚ СЃРµС‚РєСѓ РІ СЂР°СЃС‡РµС‚РЅС‹Рµ РјР°СЃСЃРёРІС‹ x, xu
             
             nx = gridSize   
             allocate(x(nx), xu(nx))  
             x = sx
             xu = sxu
             
-            print *, id, ': Сетку получил. Размер: ', nx
+            print *, id, ': РЎРµС‚РєСѓ РїРѕР»СѓС‡РёР». Р Р°Р·РјРµСЂ: ', nx
 !            print *, id, (xu(q), q = 2, nx)
 !            print *, id, '---------------------------'
 !            print *, id, (x(q), q = 1, nx)
@@ -132,15 +132,15 @@ end subroutine SendDecompose
 
 
 subroutine RecvDecompose
-    ! Прием расчетных точек
+    ! РџСЂРёРµРј СЂР°СЃС‡РµС‚РЅС‹С… С‚РѕС‡РµРє
     call MPI_Recv(nx, 1, MPI_INTEGER, 0, 100, MPI_COMM_WORLD, status, ierr)
-    ! Выделяем память
+    ! Р’С‹РґРµР»СЏРµРј РїР°РјСЏС‚СЊ
     allocate(x(nx), xu(nx))
     call MPI_Recv(x, nx, MPI_DOUBLE_PRECISION, 0, 101, MPI_COMM_WORLD, status, ierr)
-    ! Прием граней
+    ! РџСЂРёРµРј РіСЂР°РЅРµР№
     call MPI_Recv(xu, nx, MPI_DOUBLE_PRECISION, 0, 102, MPI_COMM_WORLD, status, ierr)
             
-            print *, id, ': Сетку получил. Размер: ', nx
+            print *, id, ': РЎРµС‚РєСѓ РїРѕР»СѓС‡РёР». Р Р°Р·РјРµСЂ: ', nx
 !            print *, id, (xu(q), q = 2, nx)
 !            print *, id, '---------------------------'
 !            print *, id, (x(q), q = 1, nx)
@@ -155,8 +155,8 @@ real(8), allocatable :: tx(:)
         return
     end if
     
-    ! Формируем результат
-    ! Некорневые процессы отправляют частное решение корневому
+    ! Р¤РѕСЂРјРёСЂСѓРµРј СЂРµР·СѓР»СЊС‚Р°С‚
+    ! РќРµРєРѕСЂРЅРµРІС‹Рµ РїСЂРѕС†РµСЃСЃС‹ РѕС‚РїСЂР°РІР»СЏСЋС‚ С‡Р°СЃС‚РЅРѕРµ СЂРµС€РµРЅРёРµ РєРѕСЂРЅРµРІРѕРјСѓ
     if (id /= 0) then
         do k = 1, nz
             do j = 1, ny
@@ -164,7 +164,7 @@ real(8), allocatable :: tx(:)
             end do
         end do
     
-    ! Корневой процесс принимает решения от остальных процессов
+    ! РљРѕСЂРЅРµРІРѕР№ РїСЂРѕС†РµСЃСЃ РїСЂРёРЅРёРјР°РµС‚ СЂРµС€РµРЅРёСЏ РѕС‚ РѕСЃС‚Р°Р»СЊРЅС‹С… РїСЂРѕС†РµСЃСЃРѕРІ
     else
         u1 = u
         deallocate(u, u0)

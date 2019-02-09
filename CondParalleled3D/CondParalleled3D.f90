@@ -6,10 +6,10 @@ implicit none
 
 real(8) startTime
 
-    ! Инициализируем MPI и вводим данные
+    ! РРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј MPI Рё РІРІРѕРґРёРј РґР°РЅРЅС‹Рµ
     call Initialization
     
-    ! Строим сетку и производим декомпозицию
+    ! РЎС‚СЂРѕРёРј СЃРµС‚РєСѓ Рё РїСЂРѕРёР·РІРѕРґРёРј РґРµРєРѕРјРїРѕР·РёС†РёСЋ
     xl = 0.
     xr = 6.
     
@@ -21,7 +21,7 @@ real(8) startTime
     
     call CreateGridAndDecompose
      
-    ! Синхронизируем все процессы перед началом решения
+    ! РЎРёРЅС…СЂРѕРЅРёР·РёСЂСѓРµРј РІСЃРµ РїСЂРѕС†РµСЃСЃС‹ РїРµСЂРµРґ РЅР°С‡Р°Р»РѕРј СЂРµС€РµРЅРёСЏ
     call MPI_Barrier(MPI_COMM_WORLD, ierr)
     
     if (id == 0) then
@@ -38,7 +38,7 @@ real(8) startTime
     end if
     
     
-    ! Закрываем MPI
+    ! Р—Р°РєСЂС‹РІР°РµРј MPI
     call MPI_Finalize(ierr)
 
 contains
@@ -46,18 +46,18 @@ contains
 
 subroutine Initialization
 
-    ! Инициализируем MPI
+    ! РРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј MPI
     call MPI_Init(ierr)
-    ! Получаем кол-во процессов в системе
+    ! РџРѕР»СѓС‡Р°РµРј РєРѕР»-РІРѕ РїСЂРѕС†РµСЃСЃРѕРІ РІ СЃРёСЃС‚РµРјРµ
     call MPI_Comm_Size(MPI_COMM_WORLD, numProcesses, ierr)
-    ! Получаем ранг процесса
+    ! РџРѕР»СѓС‡Р°РµРј СЂР°РЅРі РїСЂРѕС†РµСЃСЃР°
     call MPI_Comm_Rank(MPI_COMM_WORLD, id, ierr)   
     
     if (id == 0) then
         print *, "Initialization..."
         print *, "Number of processes:", numProcesses
         
-        ! Вводим данные о разбиении
+        ! Р’РІРѕРґРёРј РґР°РЅРЅС‹Рµ Рѕ СЂР°Р·Р±РёРµРЅРёРё
         write (*, *) "Divisions by X: "
         read (*, *) nx
         write (*, *) "Divisions by Y: "
@@ -70,7 +70,7 @@ subroutine Initialization
         
     end if
     
-    ! Рассылаем остальным процессам введенные данные
+    ! Р Р°СЃСЃС‹Р»Р°РµРј РѕСЃС‚Р°Р»СЊРЅС‹Рј РїСЂРѕС†РµСЃСЃР°Рј РІРІРµРґРµРЅРЅС‹Рµ РґР°РЅРЅС‹Рµ
     call MPI_Bcast(nx, 1, MPI_INTEGER, 0, MPI_COMM_WORLD, ierr)
     call MPI_Bcast(ny, 1, MPI_INTEGER, 0, MPI_COMM_WORLD, ierr)
     call MPI_Bcast(nz, 1, MPI_INTEGER, 0, MPI_COMM_WORLD, ierr)
