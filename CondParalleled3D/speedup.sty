@@ -1,0 +1,189 @@
+#!MC 1200
+# Created by Tecplot 360 build 12.1.0.6712
+$!SETSTYLEBASE FACTORY
+$!PLOTTYPE  = XYLINE
+$!FRAMELAYOUT 
+  SHOWHEADER = NO
+  HEADERCOLOR = RED
+  XYPOS
+    {
+    X = 1
+    Y = 0.25
+    }
+  WIDTH = 9
+  HEIGHT = 8
+$!THREEDAXIS 
+  ASPECTRATIOLIMIT = 25
+  BOXASPECTRATIOLIMIT = 25
+$!DELETELINEMAPS 
+$!ACTIVELINEMAPS  =  [1-3]
+$!GLOBALLINEPLOT 
+  DATALABELS
+    {
+    DISTANCESKIP = 5
+    }
+  LEGEND
+    {
+    XYPOS
+      {
+      X = 95
+      }
+    }
+$!LINEMAP  [1]
+  NAME = '&DV&'
+  ASSIGN
+    {
+    ZONE = 1
+    XAXISVAR = 1
+    YAXISVAR = 2
+    }
+  LINES
+    {
+    COLOR = BLACK
+    }
+  CURVES
+    {
+    CURVETYPE = SPLINE
+    }
+  SYMBOLS
+    {
+    SYMBOLSHAPE
+      {
+      GEOMSHAPE = CIRCLE
+      }
+    COLOR = BLACK
+    FILLMODE = USELINECOLOR
+    FILLCOLOR = RED
+    SIZE = 1
+    }
+  BARCHARTS
+    {
+    COLOR = RED
+    FILLCOLOR = RED
+    }
+  ERRORBARS
+    {
+    VAR = 4
+    COLOR = RED
+    }
+$!LINEMAP  [2]
+  NAME = '&DV&'
+  ASSIGN
+    {
+    ZONE = 1
+    XAXISVAR = 1
+    YAXISVAR = 3
+    }
+  LINES
+    {
+    COLOR = BLACK
+    LINEPATTERN = DASHED
+    }
+  CURVES
+    {
+    CURVETYPE = SPLINE
+    }
+  SYMBOLS
+    {
+    SYMBOLSHAPE
+      {
+      GEOMSHAPE = CIRCLE
+      }
+    COLOR = BLACK
+    FILLMODE = USELINECOLOR
+    FILLCOLOR = GREEN
+    SIZE = 1
+    }
+  BARCHARTS
+    {
+    COLOR = GREEN
+    FILLCOLOR = GREEN
+    }
+  ERRORBARS
+    {
+    VAR = 4
+    COLOR = GREEN
+    }
+$!LINEMAP  [3]
+  NAME = '&DV&'
+  ASSIGN
+    {
+    ZONE = 1
+    XAXISVAR = 1
+    YAXISVAR = 4
+    }
+  LINES
+    {
+    COLOR = BLACK
+    LINEPATTERN = DASHDOT
+    }
+  CURVES
+    {
+    CURVETYPE = SPLINE
+    }
+  SYMBOLS
+    {
+    SYMBOLSHAPE
+      {
+      GEOMSHAPE = CIRCLE
+      }
+    COLOR = BLACK
+    FILLMODE = USELINECOLOR
+    FILLCOLOR = BLUE
+    SIZE = 1
+    }
+  BARCHARTS
+    {
+    COLOR = BLUE
+    FILLCOLOR = BLUE
+    }
+  ERRORBARS
+    {
+    VAR = 4
+    COLOR = BLUE
+    }
+$!XYLINEAXIS 
+  DEPXTOYRATIO = 1
+$!XYLINEAXIS 
+  XDETAIL 1
+    {
+    RANGEMIN = 0
+    RANGEMAX = 6.0006000000000004
+    GRSPACING = 1
+    GRIDLINES
+      {
+      SHOW = YES
+      }
+    TITLE
+      {
+      TITLEMODE = USETEXT
+      TEXT = 'N'
+      TEXTSHAPE
+        {
+        HEIGHT = 2.6
+        }
+      }
+    }
+$!XYLINEAXIS 
+  YDETAIL 1
+    {
+    RANGEMIN = 0
+    RANGEMAX = 6.0521268599626135
+    GRSPACING = 1
+    GRIDLINES
+      {
+      SHOW = YES
+      }
+    TITLE
+      {
+      TITLEMODE = USETEXT
+      TEXT = 'Speedup'
+      TEXTSHAPE
+        {
+        HEIGHT = 2.6
+        }
+      }
+    }
+$!LINEPLOTLAYERS 
+  SHOWSYMBOLS = YES
+$!SETSTYLEBASE CONFIG
